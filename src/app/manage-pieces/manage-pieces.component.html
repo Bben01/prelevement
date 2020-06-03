@@ -1,0 +1,56 @@
+<div>
+    <h3>Pièce active</h3>
+    <div class="alert alert-warning" role="alert" *ngIf="alert(); else displayCurrent">
+        Attention! Il n'y a plus de pièces actives
+    </div>
+    <ng-template #displayCurrent>
+        <div class="card" style="width: 18em;" *ngIf="pieces">
+            <div class="card-body">
+                <h5 class="card-title"> {{toString(0)}} </h5>
+                <p class="card-text">Ajoutée le {{ pieces[0].date | date: "dd MMMM yyyy, à hh:mm:ss" }}</p>
+            </div>
+            <div class="card-footer">
+                Utilisations restantes: {{pieces[0].utilisations}}
+            </div>
+        </div>
+    </ng-template>
+</div>
+<div>
+    <h3>Pièces en stock</h3>
+    <div class="alert alert-info" role="alert" *ngIf="pieces && pieces.length <= 1; else displayStock">
+        Il n'y a pas de pièces en stock
+    </div>
+    <ng-template #displayStock>
+        <div class="card-deck"  *ngIf="pieces">
+            <div class="card mb-3" style="min-width: 18em; max-width: 18em;" *ngFor="let piece of pieces.slice(1, pieces.length); let i = index">
+                <div class="card-body">
+                    <h5 class="card-title" style="white-space: nowrap;">{{ toString(i) }}</h5>
+                    <p class="card-text">Ajoutée le {{ piece.date | date: "dd MMMM yyyy, à hh:mm:ss"}}</p>
+                </div>
+                <div class="card-footer">
+                    Utilisations restantes: {{piece.utilisations}}
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>
+
+<div>
+    <h3>Pièces utilisées</h3>
+    <div class="alert alert-info" role="alert" *ngIf="consumed && consumed.length === 0; else displayConsumed">
+        Il n'y a pas de pièces utilisées
+    </div>
+    <ng-template #displayConsumed>
+        <div class="card-deck" *ngIf="consumed">
+            <div class="card mb-3" style="min-width: 18em; max-width: 18em;" *ngFor="let consumedPiece of consumed; let i = index">
+                <div class="card-body">
+                    <h5 class="card-title" style="white-space: nowrap;">{{ toString(i, false) }}</h5>
+                    <p class="card-text">Ajoutée le {{ consumedPiece.date | date: "dd MMMM yyyy, à hh:mm:ss"}}</p>
+                </div>
+                <div class="card-footer">
+                    Utilisations restantes: {{consumedPiece.utilisations}}
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>

@@ -1,0 +1,62 @@
+{
+  "rules": {
+	 "consumed": {
+      	".write": true,
+        "$index": {
+      	".validate": "newData.hasChildren(['date', 'montant', 'utilisations'])",
+      	"date": {
+        	".validate": "newData.isNumber()"
+      	},
+        "montant": {
+        	".validate": "newData.isNumber()"
+      	},
+        "utilisations": {
+          ".validate": "newData.isNumber() && newData.val() === 0"
+      	},
+      	"$other": {
+        	".validate": false
+      	}
+    	}
+    },
+    "pieces": {
+      	".write": true,
+        "$index": {
+      	".validate": "newData.hasChildren(['date', 'montant', 'utilisations'])",
+      	"date": {
+        	".validate": "newData.isNumber()"
+      	},
+        "montant": {
+        	".validate": "newData.isNumber()"
+      	},
+        "utilisations": {
+          ".validate": "newData.isNumber() && newData.val() > 0"
+      	},
+      	"$other": {
+        	".validate": false
+      	}
+    	}
+    },
+    "posts": {
+      ".write": true,
+      "$index": {
+      	".validate": "newData.hasChildren(['date', 'comment', 'name', 'pieceId'])",
+      	"date": {
+        	".validate": "newData.isNumber()"
+      	},
+      	"name": {
+        	".validate": "newData.isString()"
+      	},
+        "comment": {
+        	".validate": "newData.isString()"
+      	},
+        "pieceId": {
+        	".validate": "newData.isNumber()"
+      	},
+      	"$other": {
+        	".validate": false
+      	}
+    	}
+  	},
+    ".read": true
+  }
+}

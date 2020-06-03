@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="mx-auto" style="width: 65%;">
+    <h2 style="margin-top: 20px;">Ajouter une pièce</h2>
+    <form [formGroup]="pieceForm" (ngSubmit)="onSavePiece()">
+      <div class="form-group">
+        <label for="montant">Montant</label>
+        <input type="number tel" id="montant" class="form-control" formControlName="montant">
+      </div>
+      <div class="form-group">
+        <label for="utils">Utilisations</label>
+        <input id="utils" type="number tel" class="form-control" formControlName="utils" placeholder="Par defaut, une utilisation a déjà été faite">
+      </div>
+      <button class="btn btn-success" [disabled]="pieceForm.invalid" type="submit">Ajouter
+      </button>
+    </form>
+  </div>
+</div>

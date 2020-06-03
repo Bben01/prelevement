@@ -1,0 +1,23 @@
+<h1 style="margin-top: 20px;">Derniers transferts effectués</h1>
+<div class="btn-group" role="group">
+    <div>
+        <label style="margin-right: 0.5em;">Trier par: </label>
+        <button type="button" class="btn btn-light btn-sm" (click)="sortByPiece()">{{isDate ? "Date" : "Pièce"}}</button>
+    </div>
+</div>
+<div class="card-deck">
+    <div class="card mb-3" style="min-width: 18em; max-width: 18em;" *ngFor="let post of posts; let i = index">
+        <div class="card-body">
+            <h3 class="card-title" style="white-space: nowrap;">{{ post.name }}</h3>
+            <p class="card-text"><small class="text-muted">{{ post.date | date: "medium" }}</small></p>
+            <p
+                [ngStyle]="{'white-space': expand[i] ? 'normal' : 'nowrap', 'font-style': post.comment === 'Pas de commentaire' ? 'italic' : 'normal'}">
+                {{ post.comment }} </p>
+        </div>
+        <div class="card-footer">
+            <a [routerLink]="" class="card-link"
+                (click)="expand[i]=!expand[i]">{{!expand[i] ? "Lire plus" : "Lire moins"}}</a>
+            <a [routerLink]="" class="card-link float-md-right" (click)="onDeletePost(post)"> Supprimer </a>
+        </div>
+    </div>
+</div>

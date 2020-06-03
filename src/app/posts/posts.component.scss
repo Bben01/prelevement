@@ -1,0 +1,11 @@
+p, h3 {
+    text-align: justify;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
