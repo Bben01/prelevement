@@ -1,7 +1,8 @@
 import { Piece } from './../models/piece.model';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/database'
 
 @Injectable()
 export class PieceService {

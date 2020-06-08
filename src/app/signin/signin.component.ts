@@ -41,4 +41,9 @@ export class SigninComponent implements OnInit {
       }
     );
   }
+
+  trimEmail() {
+    let element = this.signinForm.controls['email'];
+    element.setValue(element.value.trim());
+  }
 }

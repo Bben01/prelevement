@@ -1,7 +1,7 @@
 import { Post } from './../models/post.model';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 
 @Injectable()
@@ -26,8 +26,7 @@ export class PostsService {
       .on('value', (data: firebase.database.DataSnapshot) => {
         this.posts = data.val() ? data.val() : [];
         this.emitPosts();
-      }
-      );
+      });
   }
 
   getSinglePost(id: number) {
