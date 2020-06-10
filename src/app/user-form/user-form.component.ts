@@ -44,7 +44,6 @@ export class UserFormComponent implements OnInit {
     let pieceId = this.pieceService.use();
     const newPost = new Post(name, pieceId, comment);
     this.postsService.createNewPost(newPost);
-    // TODO: A afficher recu (creer une nouvelle page)
     this.router.navigate(['/confirm']);
   }
 

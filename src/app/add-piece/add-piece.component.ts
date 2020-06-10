@@ -41,9 +41,9 @@ export class AddPieceComponent implements OnInit {
 
   onSavePiece() {
     const montant = +this.pieceForm.get('montant').value;
-    const utils = +this.pieceForm.get('utils').value;
+    let utils = +this.pieceForm.get('utils').value;
+    utils = utils === 0 ? 1 : utils;
     this.pieceService.addPiece(montant, utils);
-    // TODO: A afficher recu (creer une nouvelle page)
-    this.router.navigate(['/posts']);
+    this.router.navigate(['/pieces']);
   }
 }
