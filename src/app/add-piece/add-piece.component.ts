@@ -44,6 +44,7 @@ export class AddPieceComponent implements OnInit {
     let utils = +this.pieceForm.get('utils').value;
     utils = utils === 0 ? 1 : utils;
     this.pieceService.addPiece(montant, utils);
-    this.router.navigate(['/pieces']);
+    this.pieceForm.reset();
+    window.scrollTo(0, 0);
   }
 }
