@@ -1,3 +1,6 @@
+import { AdminGuardService } from './services/admin-guard.service';
+import { HistoryComponent } from './history/history.component';
+import { SignupComponent } from './signup/signup.component';
 import { ManageComponent } from './manage/manage.component';
 import { ConfirmUserComponent } from './confirm-user/confirm-user.component';
 import { PostsComponent } from './posts/posts.component';
@@ -10,10 +13,12 @@ import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   { path: 'transferer', component: UserFormComponent},
+  { path: 'signup', component: SignupComponent},
   { path: 'signin', component: SigninComponent},
   { path: 'confirm', component: ConfirmUserComponent},
-  { path: 'posts', canActivate: [AuthGuardService], component: PostsComponent},
-  { path: 'pieces', canActivate: [AuthGuardService], component: ManageComponent},
+  { path: 'posts', canActivate: [AuthGuardService, AdminGuardService], component: PostsComponent},
+  { path: 'history', canActivate: [AuthGuardService], component: HistoryComponent},
+  { path: 'pieces', canActivate: [AuthGuardService, AdminGuardService], component: ManageComponent},
   { path: '', component: UserFormComponent, pathMatch: 'full'},
   { path: '**', component: UserFormComponent}
 ];

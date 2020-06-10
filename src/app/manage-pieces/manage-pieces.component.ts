@@ -17,7 +17,6 @@ export class ManagePiecesComponent implements OnInit, OnDestroy {
   constructor(private pieceService: PieceService) { 
   }
   
-
   ngOnInit(): void {
     this.pieceSubsciption = this.pieceService.piecesSubject.subscribe(
       (pieces: Piece[]) => {

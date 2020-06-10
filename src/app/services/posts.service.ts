@@ -1,16 +1,24 @@
+import { AuthService } from './auth.service';
 import { Post } from './../models/post.model';
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Injectable, OnInit } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
 import * as firebase from 'firebase/app';
 
 
 @Injectable()
 export class PostsService {
   posts: Post[] = [];
+  user: {"auth": boolean, "admin": boolean, "uid": string};
   postSubject = new Subject<Post[]>();
+  userSubscription: Subscription;
 
-  constructor() {
-    this.getPosts();
+  constructor(private authService: AuthService) {
+    this.userSubscription = this.authService.userSubject.subscribe(
+      (user: {"auth": boolean, "admin": boolean, "uid": string}) => {
+        this.user = user;
+        this.getPosts();
+      });
+    this.authService.emitUser();
   }
 
   emitPosts() {
@@ -18,29 +26,40 @@ export class PostsService {
   }
 
   savePost() {
-    firebase.database().ref('/posts').set(this.posts);
+    firebase.database().ref('/posts_id/' + this.user["uid"]).set(this.posts);
   }
 
   getPosts() {
-    firebase.database().ref('/posts')
+    console.log("isAdmin:", this.user["admin"])
+    if (this.user["admin"]) {
+      this.getAdminPosts();
+    }
+    else if (this.user["uid"]) {
+      this.getUserPost(this.user["uid"]);
+    }
+  }
+
+  getUserPost(uid: string) {
+    firebase.database().ref('/posts_id/' + uid)
       .on('value', (data: firebase.database.DataSnapshot) => {
         this.posts = data.val() ? data.val() : [];
         this.emitPosts();
       });
   }
 
-  getSinglePost(id: number) {
-    return new Promise(
-      (resolve, reject) => {
-        firebase.database().ref('/posts/' + id).once('value').then(
-          (data: firebase.database.DataSnapshot) => {
-            resolve(data.val());
-          }, (error) => {
-            reject(error);
+  getAdminPosts() {
+    firebase.database().ref('/posts_id')
+      .on('value', (data: firebase.database.DataSnapshot) => {
+        // TODO: Je crois quil faut voir comment le data est formatté
+        this.posts = [];
+        if(data.val()) {
+          for(let userPosts in data.val()) {
+            this.posts = this.posts.concat(data.val()[userPosts]);
           }
-        );
-      }
-    );
+          console.log(this.posts);
+        }
+        this.emitPosts();
+      });
   }
 
   createNewPost(newPost: Post) {

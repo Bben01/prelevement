@@ -18,6 +18,8 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { ConfirmUserComponent } from './confirm-user/confirm-user.component';
 import { ManageComponent } from './manage/manage.component';
 import { ManagePiecesComponent } from './manage-pieces/manage-pieces.component';
+import { HistoryComponent } from './history/history.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { ManagePiecesComponent } from './manage-pieces/manage-pieces.component';
     ConfirmUserComponent,
     ManageComponent,
     ManagePiecesComponent,
+    HistoryComponent,
+    SignupComponent,
   ],
   imports: [
     HttpClientModule,

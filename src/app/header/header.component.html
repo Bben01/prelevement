@@ -8,13 +8,19 @@
             <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" routerLink="transferer">Transférer</a>
             </li>
-            <li class="nav-item" routerLinkActive="active" *ngIf="isAuth">
+            <li class="nav-item" routerLinkActive="active" *ngIf="isAdmin">
                 <a class="nav-link" routerLink="pieces" (click)="onRajouter()" style="cursor:pointer" *ngIf="isAuth">Gérer les pièces</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" *ngIf="isAuth && !isAdmin">
+                <a class="nav-link" routerLink="history">Historique</a>
             </li>
         </ul>
         <ul class="navbar-nav mr">
-            <li class="nav-item" routerLinkActive="active" *ngIf="isAuth">
+            <li class="nav-item" routerLinkActive="active" *ngIf="isAdmin">
                 <a class="nav-link" routerLink="posts" (click)="onPosts()" style="cursor:pointer" *ngIf="isAuth">Posts</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" *ngIf="!isAuth">
+                <a class="nav-link" routerLink="signup">Inscription</a>
             </li>
             <li class="nav-item" routerLinkActive="active" *ngIf="!isAuth">
                 <a class="nav-link" routerLink="signin">Connexion</a>
