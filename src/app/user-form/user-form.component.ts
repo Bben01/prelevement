@@ -34,15 +34,24 @@ export class UserFormComponent implements OnInit {
   initForm() {
     this.postForm = this.formBuilder.group({
       name: ['', Validators.required],
-      comment: '',
+      surname: ['', Validators.required],
+      phone: ['', [Validators.required, 
+        Validators.pattern("^[0-9]*$"), 
+        Validators.minLength(10), 
+        Validators.maxLength(10)]],
+      email: ['', [Validators.required, Validators.email]],
+      comment: ''
     });
   }
 
   onSavePost() {
     const name = this.postForm.get('name').value;
+    const surname = this.postForm.get('surname').value;
+    const phone = this.postForm.get('phone').value;
+    const email = this.postForm.get('email').value;
     const comment = this.postForm.get('comment').value;
     let pieceId = this.pieceService.use();
-    const newPost = new Post(name, pieceId, comment);
+    const newPost = new Post(name, pieceId, comment, surname, phone, email);
     this.postsService.createNewPost(newPost);
     this.router.navigate(['/confirm']);
   }

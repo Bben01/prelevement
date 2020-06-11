@@ -18,6 +18,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { ConfirmUserComponent } from './confirm-user/confirm-user.component';
 import { ManageComponent } from './manage/manage.component';
 import { ManagePiecesComponent } from './manage-pieces/manage-pieces.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ManagePiecesComponent } from './manage-pieces/manage-pieces.component';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
+    NgbModule,
   ],
   providers: [AuthService, PostsService, AuthGuardService, PieceService],
   bootstrap: [AppComponent]

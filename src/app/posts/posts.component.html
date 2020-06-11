@@ -2,13 +2,19 @@
 <div class="btn-group" role="group">
     <div>
         <label style="margin-right: 0.5em;">Trier par: </label>
-        <button type="button" class="btn btn-light btn-sm" (click)="sortByPiece()">{{isDate ? "Date" : "Pièce"}}</button>
+        <button type="button" class="btn btn-light btn-sm"
+            (click)="sortByPiece()">{{isDate ? "Date" : "Pièce"}}</button>
     </div>
 </div>
 <div class="card-deck">
     <div class="card mb-3" style="min-width: 18em; max-width: 18em;" *ngFor="let post of posts; let i = index">
         <div class="card-body">
-            <h3 class="card-title" style="white-space: nowrap;">{{ post.name }}</h3>
+            <h3 class="card-title" style="white-space: nowrap;">{{ post.surname + " " + post.name }}</h3>
+            <button type="button" class="btn btn-light btn-sm" placement="right"
+                [ngbPopover]="'E-mail: ' + post.email + '\nTéléphone: ' + post.phone"
+                popoverTitle="Informations supplémentaires" #popover="ngbPopover">
+                Informations
+            </button>
             <p class="card-text"><small class="text-muted">{{ post.date | date: "medium" }}</small></p>
             <p
                 [ngStyle]="{'white-space': expand[i] ? 'normal' : 'nowrap', 'font-style': post.comment === 'Pas de commentaire' ? 'italic' : 'normal'}">
