@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { PostsService } from './../services/posts.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { data } from '../../assets/TextTeroumaAlts'
 
 @Component({
   selector: 'app-user-form',
@@ -31,6 +32,14 @@ export class UserFormComponent implements OnInit {
     return this.pieceService.utilisRestantes <= 0;
   }
 
+  displayText() {
+    const quantity = this.postForm.get('quantity').value;
+    const type = this.postForm.get('type').value;
+    const tab = data[quantity];
+    const val = tab ? tab[type] : '';
+    return val;
+  }
+
   initForm() {
     this.postForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -40,6 +49,8 @@ export class UserFormComponent implements OnInit {
         Validators.minLength(10), 
         Validators.maxLength(10)]],
       email: ['', [Validators.required, Validators.email]],
+      quantity: ['', Validators.required],
+      type: ['', Validators.required],
       comment: ''
     });
   }

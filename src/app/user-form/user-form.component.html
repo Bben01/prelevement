@@ -21,6 +21,31 @@
         <label for="email">Addresse mail</label>
         <input type="text" id="email" class="form-control" formControlName="email">
       </div>
+      <div class="alert alert-primary" style="text-align: center;" role="alert">
+        Il est important de bien remplir le questionnaire suivant, car le texte lu va dépendre
+        des différentes cases cochées. (Le texte ne sera pas le même s’il y a une sorte de
+        fruits ou plusieurs, s’il l’on possède une <i>Prouta Hamoura</i> ou pas, etc…)
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="quantity" id="single-fruit" value="single" formControlName="quantity">
+        <label class="form-check-label" for="single-fruit">Une sorte de fruits</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="quantity" id="multiple-fruit" value="multiple" formControlName="quantity">
+        <label class="form-check-label" for="multiple-fruit">Plusieurs sortes de fruits</label>
+      </div>
+      <br>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="type" id="tevel" value="tevel" formControlName="type">
+        <label class="form-check-label" for="tevel"><i>Tévèl</i></label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="type" id="dmai" value="dmai" formControlName="type">
+        <label class="form-check-label" for="dmai"><i>Dmaï</i></label>
+      </div>
+      <div class="alert alert-light" style="text-align: center;" role="alert" *ngIf="displayText()">
+        {{displayText()}}
+      </div>
       <div class="form-group">
         <label for="comment">Commentaire</label>
         <textarea id="comment" class="form-control" formControlName="comment" style="resize: vertical;">
