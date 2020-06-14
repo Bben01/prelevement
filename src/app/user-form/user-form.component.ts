@@ -2,7 +2,7 @@ import { PieceService } from './../services/piece.service';
 import { Post } from './../models/post.model';
 import { Router } from '@angular/router';
 import { PostsService } from './../services/posts.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidationErrors } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { data } from '../../assets/TextTeroumaAlts'
 
@@ -14,15 +14,16 @@ import { data } from '../../assets/TextTeroumaAlts'
 export class UserFormComponent implements OnInit {
 
   postForm: FormGroup;
+  phonePattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
 
   constructor(private formBuilder: FormBuilder,
-              private postsService: PostsService,
-              private pieceService: PieceService,
-              private router: Router) { }
+    private postsService: PostsService,
+    private pieceService: PieceService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.initForm();
-    setTimeout(() => { 
+    setTimeout(() => {
       let explaination = document.getElementById("explaination");
       explaination.style.opacity = "1";
     }, 250);
@@ -44,15 +45,20 @@ export class UserFormComponent implements OnInit {
     this.postForm = this.formBuilder.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
-      phone: ['', [Validators.required, 
-        Validators.pattern("^[0-9]*$"), 
-        Validators.minLength(10), 
-        Validators.maxLength(10)]],
+      phone: ['', [Validators.required,
+      Validators.pattern(this.phonePattern)]],
       email: ['', [Validators.required, Validators.email]],
       quantity: ['', Validators.required],
       type: ['', Validators.required],
       comment: ''
     });
+  }
+
+  getValidStatus(id: string) {
+    if (this.postForm.get(id).touched) {
+      return (this.postForm.get(id).valid) ? "is-valid" : "is-invalid";
+    }
+    return "";
   }
 
   onSavePost() {
@@ -67,4 +73,20 @@ export class UserFormComponent implements OnInit {
     this.router.navigate(['/confirm']);
   }
 
+  getFormValidationErrors(id: string) {
+    const controlErrors: ValidationErrors = this.postForm.get(id).errors;
+    if (!controlErrors) {
+      return "";
+    }
+    if (controlErrors['required']) {
+      return "Ce champ est obligatoire"
+    }
+    if (controlErrors['pattern']) {
+      return "Le numéro de télephone est invalide";
+    }
+    if (controlErrors['email']) {
+      return "L'addresse mail est invalide";
+    }
+
+  }
 }

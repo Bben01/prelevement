@@ -1,3 +1,13 @@
+.ng-valid[required], .ng-valid.required  {
+    border-color: #28a745; /* green */
+  }
+
+.alert-text {
+    color: #dc3545;
+    font-size: 80%;
+    margin-top: .25rem;
+}
+
 #explaination {
     opacity: 0;
     transition: opacity 1s;
