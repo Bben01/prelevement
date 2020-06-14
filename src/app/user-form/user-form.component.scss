@@ -1,6 +1,6 @@
 .ng-valid[required], .ng-valid.required  {
     border-color: #28a745; /* green */
-  }
+}
 
 .alert-text {
     color: #dc3545;
@@ -8,7 +8,7 @@
     margin-top: .25rem;
 }
 
-#explaination {
+#explanation {
     opacity: 0;
     transition: opacity 1s;
     -webkit-transition: opacity 1s; /* Safari */

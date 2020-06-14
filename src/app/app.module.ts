@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MarkdownModule } from 'ngx-markdown';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -41,9 +42,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule,
+    NgbModule
   ],
-  providers: [AuthService, PostsService, AuthGuardService, PieceService],
+  providers: [AuthService, PostsService, AuthGuardService, PieceService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

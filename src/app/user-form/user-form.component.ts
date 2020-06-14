@@ -5,6 +5,7 @@ import { PostsService } from './../services/posts.service';
 import { FormGroup, FormBuilder, Validators, ValidationErrors } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { data } from '../../assets/TextTeroumaAlts'
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-user-form',
@@ -19,13 +20,14 @@ export class UserFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private postsService: PostsService,
     private pieceService: PieceService,
-    private router: Router) { }
+    private router: Router,
+    private cookieService: CookieService) { }
 
   ngOnInit(): void {
     this.initForm();
     setTimeout(() => {
-      let explaination = document.getElementById("explaination");
-      explaination.style.opacity = "1";
+      let explanation = document.getElementById("explanation");
+      explanation.style.opacity = "1";
     }, 250);
   }
 
@@ -43,11 +45,11 @@ export class UserFormComponent implements OnInit {
 
   initForm() {
     this.postForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
-      phone: ['', [Validators.required,
+      name: [this.cookieService.get("name"), Validators.required],
+      surname: [this.cookieService.get("surname"), Validators.required],
+      phone: [this.cookieService.get("phone"), [Validators.required,
       Validators.pattern(this.phonePattern)]],
-      email: ['', [Validators.required, Validators.email]],
+      email: [this.cookieService.get("email"), [Validators.required, Validators.email]],
       quantity: ['', Validators.required],
       type: ['', Validators.required],
       comment: ''
@@ -70,7 +72,15 @@ export class UserFormComponent implements OnInit {
     let pieceId = this.pieceService.use();
     const newPost = new Post(name, pieceId, comment, surname, phone, email);
     this.postsService.createNewPost(newPost);
+    this.saveCookie(name, surname, phone, email);
     this.router.navigate(['/confirm']);
+  }
+
+  saveCookie(name: string, surname: string, phone: string, email: string) {
+    this.cookieService.set("name", name);
+    this.cookieService.set("surname", surname);
+    this.cookieService.set("phone", phone);
+    this.cookieService.set("email", email);
   }
 
   getFormValidationErrors(id: string) {
@@ -87,6 +97,5 @@ export class UserFormComponent implements OnInit {
     if (controlErrors['email']) {
       return "L'addresse mail est invalide";
     }
-
   }
 }
