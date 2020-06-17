@@ -1,10 +1,10 @@
 export const data = {
     "single": {
-        "tevel": "TextTevelSingle",
-        "dmai": "TextDmaiSingle"
+        "tevel": "TevelSingle",
+        "dmai": "DmaiSingle"
     },
     "multiple": {
-        "tevel": "TextTevelMultiple",
-        "dmai": "TextDmaiMultiple"
+        "tevel": "TevelMulti",
+        "dmai": "DmaiMulti"
     }
 }

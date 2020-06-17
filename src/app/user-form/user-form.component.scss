@@ -8,8 +8,18 @@
     margin-top: .25rem;
 }
 
+.form-check-input {
+    size: 100%;
+}
+
 #explanation {
     opacity: 0;
     transition: opacity 1s;
     -webkit-transition: opacity 1s; /* Safari */
+}
+
+#nosah {
+    margin-top: 20px;
+    unicode-bidi: bidi-override;
+    text-align: start;
 }
